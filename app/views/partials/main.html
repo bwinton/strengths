@@ -1,12 +1,16 @@
 <div ng-include="'partials/navbar'"></div>
 
 <div class="jumbotron">
+  <div ng-repeat="person in people">
+    <h4>{{person.name}} &lt;{{person.email}}&gt;</h4>
+    {{person.strengths | personStrengths:' - '}}
+  </div>
 </div>
 
 <div class="row marketing">
   <div ng-repeat="thing in awesomeThings">
-      <h4>{{thing.name}}</h4>
-      <p>{{thing.info}}</p>
+    <h4>{{thing.name}}</h4>
+    <p>{{thing.info}}</p>
   </div>
 </div>
 
