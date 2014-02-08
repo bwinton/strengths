@@ -26,7 +26,8 @@ module.exports = function (grunt) {
     },
     express: {
       options: {
-        port: process.env.PORT || 8000
+        port: process.env.PORT || 8000,
+        host: process.env.HOST || '127.0.0.1'
       },
       dev: {
         options: {
@@ -43,7 +44,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= express.options.port %>'
+        url: 'http://<%= express.options.host %>:<%= express.options.port %>'
       }
     },
     watch: {
