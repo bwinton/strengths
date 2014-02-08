@@ -18,14 +18,14 @@ angular.module('strengthsApp', [
 
   $locationProvider.html5Mode(true);
 
-}).run(function (AuthenticationService) {
+}).run(function (AuthenticationService, $rootScope) {
   // get session user
   AuthenticationService.authenticate();
 
-  // $rootScope.permissions = AuthenticationService.getPermissions();
+  $rootScope.permissions = AuthenticationService.getPermissions();
 
-  // $rootScope.$watch('loggedInUser', function(){
-  //   $rootScope.permissions = AuthenticationService.getPermissions();
-  // });
+  $rootScope.$watch('loggedInUser.email', function(){
+    $rootScope.permissions = AuthenticationService.getPermissions();
+  });
 
 });

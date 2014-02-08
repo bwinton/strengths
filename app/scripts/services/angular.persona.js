@@ -13,7 +13,7 @@
 /* Directives */
 
 angular.module('angular-tools.persona', [])
-  .directive('user', function ($http, $location) {
+  .directive('user', function ($http, $location, AuthenticationService) {
     var personaOptions = {
       headers: {'Content-Type': 'application/json'},
       transformRequest: function (data) {
@@ -43,7 +43,9 @@ angular.module('angular-tools.persona', [])
       link: function userPostLink(scope, iElement) {
 
         var removeUser = function () {
-          delete scope.loggedInUser.email;
+          if (scope.loggedInUser) {
+            delete scope.loggedInUser.email;
+          }
         };
 
         // Log in when we click the login button.
@@ -57,7 +59,7 @@ angular.module('angular-tools.persona', [])
               $http.post('/persona/verify', {assertion: assertion}, personaOptions).success(function (data) {
                 scope.progress = false;
                 if (data.status === 'okay') {
-                  scope.loggedInUser.email = data.email;
+                  AuthenticationService.authenticate();
                 } else {
                   console.log('Login failed because ' + data.reason);
                   removeUser();

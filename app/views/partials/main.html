@@ -1,14 +1,19 @@
 <div ng-include="'partials/navbar'"></div>
 
-<div class="jumbotron">
-  <div ng-repeat="person in people">
-    <h4>{{person.name}} &lt;{{person.email}}&gt;</h4>
-    {{person.strengths | personStrengths:' - '}}
-  </div>
-</div>
+<!-- div class="jumbotron">
+  <h4>Strengths Finder.</h4>
+</div -->
 
 <div class="row marketing">
+  Search: <input ng-model="searchText">
+  <ul>
+  <li ng-repeat="person in people | filter:searchText">
+    <span title="<{{person.email}}>">{{person.name}}</span>:
+    {{person.strengths | personStrengths}}
+  </li>
+  </ul>
 </div>
 
 <div class="footer">
+  Brought to you by bwinton@mozilla.com.
 </div>

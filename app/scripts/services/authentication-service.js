@@ -21,8 +21,8 @@ angular.module('strengthsApp')
 
     this.authenticate = function (next) {
 
-      $rootScope.$watch('loggedInUser', function () {
-        if ($rootScope.loggedInUser === null) { // && !$rootScope.loggedInUser.authLevel) {
+      $rootScope.$watch('loggedInUser.email', function () {
+        if (!$rootScope.loggedInUser.email) { // && !$rootScope.loggedInUser.authLevel) {
           self.getUser();
         } else {
           self.user = $rootScope.loggedInUser;
@@ -38,20 +38,20 @@ angular.module('strengthsApp')
 
     this.getUser = function () {
       $http.get('/api/getUser').then(function (res) {
-        if (res.data.email) {
-          $rootScope.loggedInUser = res.data;
-          self.user = res.data;
+        $rootScope.loggedInUser = res.data;
+        self.user = res.data;
 
-          // if (!self.user.firstName || !self.user.lastName) {
-          //   _.defer(function () {
-          //     $('.profileLink').tooltip({
-          //       title: 'Complete your profile!',
-          //       placement: 'bottom'
-          //     })
-          //     .tooltip('show');
-          //   });
-          // }
-        }
+        // if (res.data.email) {
+        //   if (!self.user.firstName || !self.user.lastName) {
+        //     _.defer(function () {
+        //       $('.profileLink').tooltip({
+        //         title: 'Complete your profile!',
+        //         placement: 'bottom'
+        //       })
+        //       .tooltip('show');
+        //     });
+        //   }
+        // }
       });
     };
 
@@ -68,7 +68,7 @@ angular.module('strengthsApp')
     };
 
     this.authLevel = function () {
-      if (self.user !== null) {
+      if (self.user) {
         return self.user.authLevel;
       } else {
         return 0;
@@ -84,11 +84,9 @@ angular.module('strengthsApp')
     };
 
     this.canEdit = function (model) {
-      if (self.user !== null && model.owner !== null && model.owner.email === self.user.email) {
+      if (self.user && model.owner && model.owner.email === self.user.email) {
         return true;
       } else if (self.authLevel() >= self.adminLevel) {
-        return true;
-      } else if (model.email !== null && model.email === self.user.email) {
         return true;
       } else {
         return false;
@@ -98,7 +96,7 @@ angular.module('strengthsApp')
     this.canDelete = this.canEdit;
 
     this.getUserType = function () {
-      if (self.user === null) {
+      if (!self.user) {
         return '';
       }
 
