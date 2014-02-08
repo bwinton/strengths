@@ -5,4 +5,7 @@ angular.module('strengthsApp')
     $http.get('/api/awesomeThings').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
     });
+    $http.get('/api/strengths').success(function(strengths) {
+      $scope.strengths = strengths;
+    });
   });
