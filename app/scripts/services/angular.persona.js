@@ -13,7 +13,7 @@
 /* Directives */
 
 angular.module('angular-tools.persona', [])
-  .directive('user', function ($http, $location, AuthenticationService) {
+  .directive('user', function ($http, $location, AuthenticationService, UIHelperService) {
     var personaOptions = {
       headers: {'Content-Type': 'application/json'},
       transformRequest: function (data) {
@@ -33,14 +33,19 @@ angular.module('angular-tools.persona', [])
 
     var directiveDefinitionObject = {
       restrict: 'E',
-      scope: {'loggedInUser' : '=loggedInUser'},
+      scope: {'loggedInUser': '=loggedInUser'},
       template: '<div id="user">' +
                 '  <a ng-hide="loggedInUser.email || progress" class="button login" title="Click to sign in.">Sign In</a>' +
                 '  <p ng-show="progress">Signing In...</p>' +
-                '  <p ng-show="loggedInUser.email"><img src="http://avatars.io/email/{{ loggedInUser.email }}" width=24 height=24 /><a class="profileLink" ng-href="/profile">{{ UI.displayName(loggedInUser) }}</a> <small class="text-label">{{ permissions.userType }}</small> |  <a class="email" title="Click to sign out.">Sign Out</a></p>' +
+                '  <p ng-show="loggedInUser.email"><img src="http://avatars.io/email/{{ loggedInUser.email }}" width=24 height=24 />' +
+                  '<a class="profileLink" ng-href="/profile">{{ UI.displayName(loggedInUser) }}</a> ' +
+                  '<small class="text-label">{{ permissions.userType }}</small> |  ' +
+                  '<a class="email" title="Click to sign out.">Sign Out</a></p>' +
                 '</div>',
 
       link: function userPostLink(scope, iElement) {
+        scope.UI = UIHelperService;
+        scope.permissions = AuthenticationService.getPermissions();
 
         var removeUser = function () {
           if (scope.loggedInUser) {
@@ -60,6 +65,14 @@ angular.module('angular-tools.persona', [])
                 scope.progress = false;
                 if (data.status === 'okay') {
                   AuthenticationService.authenticate();
+                  if (data.email) {
+                    if (!data.name) {
+                      iElement.find('.profileLink').tooltip({
+                        title: 'Complete your profile!',
+                        placement: 'bottom'
+                      }).tooltip('show');
+                    }
+                  }
                 } else {
                   console.log('Login failed because ' + data.reason);
                   removeUser();

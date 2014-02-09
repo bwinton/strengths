@@ -40,18 +40,6 @@ angular.module('strengthsApp')
       $http.get('/api/getUser').then(function (res) {
         $rootScope.loggedInUser = res.data;
         self.user = res.data;
-
-        // if (res.data.email) {
-        //   if (!self.user.firstName || !self.user.lastName) {
-        //     _.defer(function () {
-        //       $('.profileLink').tooltip({
-        //         title: 'Complete your profile!',
-        //         placement: 'bottom'
-        //       })
-        //       .tooltip('show');
-        //     });
-        //   }
-        // }
       });
     };
 
