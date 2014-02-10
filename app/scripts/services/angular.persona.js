@@ -46,6 +46,9 @@ angular.module('angular-tools.persona', [])
       link: function userPostLink(scope, iElement) {
         scope.UI = UIHelperService;
         scope.permissions = AuthenticationService.getPermissions();
+        scope.$watch('loggedInUser', function () {
+          scope.permissions = AuthenticationService.getPermissions();
+        });
 
         var removeUser = function () {
           if (scope.loggedInUser) {
