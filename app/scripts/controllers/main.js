@@ -5,7 +5,9 @@ angular.module('strengthsApp')
     $http.get('/api/strengths').success(function(strengths) {
       $scope.strengths = strengths;
     });
-    $http.get('/api/people').success(function(people) {
-      $scope.people = people;
+    $http.get('/api/people').success(function (people) {
+      $scope.people = people.filter(function (person) {
+        return person.strengths && person.strengths.length === 5;
+      });
     });
   });
