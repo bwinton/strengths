@@ -9,7 +9,12 @@
   <ul>
   <li ng-repeat="person in people | filter:searchText">
     <span title="<{{person.email}}>">{{person.name}}</span>:
-    {{person.strengths | personStrengths}}
+    <span ng-if="loggedInUser.email"
+          ng-repeat="strength in person.strengths"
+          class="strength {{strength.area}}">{{strength.name}}</span>
+    <span ng-if="!loggedInUser.email"
+          class="strength Hidden">(Strengths hidden.)</span>
+
   </li>
   </ul>
 </div>
