@@ -6,7 +6,7 @@
   strict:true, undef:true, browser:true, indent:2, maxerr:50, devel:true,
   boss:true, white:true, globalstrict:true, nomen:false, newcap:true*/
 
-/*global angular:false */
+/*global angular:false, $:false */
 
 'use strict';
 
@@ -70,7 +70,8 @@ angular.module('angular-tools.persona', [])
                   AuthenticationService.authenticate();
                   if (data.email) {
                     if (!data.name) {
-                      iElement.find('.profileLink').tooltip({
+                      // console.log("Tooltip!!", data);
+                      $(iElement.find('.profileLink')).tooltip({
                         title: 'Complete your profile!',
                         placement: 'bottom'
                       }).tooltip('show');
