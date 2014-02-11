@@ -38,7 +38,7 @@ angular.module('strengthsApp', [
 
   $rootScope.permissions = AuthenticationService.getPermissions();
 
-  $rootScope.$watch('loggedInUser.email', function(){
+  $rootScope.$watch('loggedInUser.email', function () {
     $rootScope.permissions = AuthenticationService.getPermissions();
   });
 
