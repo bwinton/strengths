@@ -22,6 +22,10 @@ angular.module('strengthsApp', [
       templateUrl: 'partials/main',
       controller: 'MainCtrl'
     })
+    .when('/profile', {
+      templateUrl: 'partials/profile',
+      controller: 'ProfileCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
