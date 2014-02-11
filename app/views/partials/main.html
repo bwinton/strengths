@@ -6,15 +6,14 @@
 
 <div class="row marketing">
   Search: <input ng-model="searchText">
-  <ul>
+  <ul class="people">
   <li ng-repeat="person in people | filter:searchText">
-    <span title="<{{person.email}}>">{{person.name}}</span>:
-    <span ng-if="loggedInUser.email"
+    <div title="<{{person.email}}>" class="person">{{person.name}}:</div>
+    <div ng-if="loggedInUser.email"
           ng-repeat="strength in person.strengths"
-          class="strength {{strength.area}}">{{strength.name}}</span>
-    <span ng-if="!loggedInUser.email"
-          class="strength Hidden">(Strengths hidden.)</span>
-
+          class="strength {{strength.area}}">{{strength.name}}</div>
+    <div ng-if="!loggedInUser.email"
+          class="strength Hidden">(Strengths hidden.)</div>
   </li>
   </ul>
 </div>

@@ -70,11 +70,24 @@ body {
 li {
   line-height: 1.8;
 }
+
+.people {
+  list-style: none;
+}
+
+.person {
+  display: inline-block;
+  width: 15%;
+}
+
 .strength {
+  display: inline-block;
+  width: 15%;
   border-radius: 3px;
   margin: 4px 2px;
   padding: 2px;
   color: white;
+  text-align: center;
 }
 
 .strength.Executing {
