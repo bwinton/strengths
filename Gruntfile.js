@@ -127,16 +127,6 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      heroku: {
-        files: [{
-          dot: true,
-          src: [
-            'heroku/*',
-            '!heroku/.git*',
-            '!heroku/Procfile'
-          ]
-        }]
-      },
       server: '.tmp'
     },
 
@@ -320,6 +310,8 @@ module.exports = function (grunt) {
           src: [
             'package.json',
             'server.js',
+            'stackato.yml',
+            'private.yml',
             'lib/**/*'
           ]
         }]
@@ -430,11 +422,6 @@ module.exports = function (grunt) {
     'rev',
     'usemin'
   ]);
-
-  grunt.registerTask('heroku', function () {
-    grunt.log.warn('The `heroku` task has been deprecated. Use `grunt build` to build for deployment.');
-    grunt.task.run(['build']);
-  });
 
   grunt.registerTask('default', [
     'newer:jshint',
