@@ -10,9 +10,35 @@
 
 'use strict';
 
+var mapStrengths = function (strengths, topFiveStrengths) {
+  var s = {};
+  strengths.map(function (item) {
+    s[item._id] = item;
+  });
+
+  var rv = topFiveStrengths || [{}, {}, {}, {}, {}];
+  rv = rv.map(function (strength) {
+    if (strength._id) {
+      return s[strength._id];
+    } else {
+      return {};
+    }
+  });
+  return rv;
+};
+
 angular.module('strengthsApp')
   .controller('ProfileCtrl', function ($scope, $http) {
-    $http.get('/api/strengths').success(function(strengths) {
+    $http.get('/api/strengths').success(function (strengths) {
       $scope.strengths = strengths;
+
+      $scope.topFiveStrengths = mapStrengths(strengths, $scope.loggedInUser.strengths);
     });
+
+    $scope.save = function () {
+      $scope.loggedInUser.strengths = $scope.topFiveStrengths.slice(0);
+      $http.post('/api/people', $scope.loggedInUser).success(function (person) {
+        console.log('Saved!!!', person);
+      });
+    };
   });

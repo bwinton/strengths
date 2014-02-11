@@ -25,20 +25,20 @@
       </div>
     </div>
 
-    <div class="form-group" ng-repeat="x in [1,2,3,4,5]">
-      <label class="col-sm-2 control-label">#{{x}}</label>
-      <div class="col-sm-5">            
-        <select class="form-control">
-        <option selected="">Select your #{{x}} Strength</option>
-        <option ng-repeat="strength in strengths"
-          >{{strength.name}}</option>
+    <div class="form-group"
+         ng-repeat="topStrength in topFiveStrengths">
+      <label class="col-sm-2 control-label">#{{$index + 1}}</label>
+      <div class="col-sm-5">
+        <select class="form-control" ng-model="topFiveStrengths[$index]"
+                ng-options="strength.name for strength in strengths">
+          <option value="">Select your #{{$index + 1}} Strength</option>
         </select>
       </div>
     </div>
 
     <div class="form-group">
       <div class="col-sm-2"></div>
-      <button type="button" class="btn btn-primary">Save!</button>
+      <button type="button" class="btn btn-primary" ng-click="save()">Save!</button>
     </div>
 
   </form>
