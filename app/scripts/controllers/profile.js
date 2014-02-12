@@ -16,7 +16,7 @@ var mapStrengths = function (strengths, topFiveStrengths) {
     s[item._id] = item;
   });
 
-  var rv = topFiveStrengths || [{}, {}, {}, {}, {}];
+  var rv = topFiveStrengths.concat([{}, {}, {}, {}, {}]).slice(0, 5);
   rv = rv.map(function (strength) {
     if (strength._id) {
       return s[strength._id];
