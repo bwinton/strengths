@@ -11,7 +11,7 @@
     <div title="<{{person.email}}>" class="person">{{person.name}}:</div>
     <div ng-if="loggedInUser.email"
           ng-repeat="strength in person.strengths"
-          class="strength {{strength.area}}">{{strength.name}}</div>
+          class="strength {{strength.area}}"><a href="{{strength.url}}">{{strength.name}}</a></div>
     <div ng-if="!loggedInUser.email"
           class="strength Hidden">(Strengths hidden.)</div>
   </li>

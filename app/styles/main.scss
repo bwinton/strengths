@@ -90,6 +90,10 @@ li {
   text-align: center;
 }
 
+.strength > a {
+  color: inherit;
+}
+
 .strength.Executing {
   background-color: #cc0001;
 }
