@@ -20,4 +20,11 @@ angular.module('strengthsApp')
         return person.strengths && person.strengths.length === 5;
       });
     });
+    $scope.$watch('loggedInUser.email', function () {
+      $http.get('/api/people').success(function (people) {
+        $scope.people = people.filter(function (person) {
+          return person.strengths && person.strengths.length === 5;
+        });
+      });
+    });
   });
