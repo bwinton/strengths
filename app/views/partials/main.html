@@ -7,7 +7,7 @@
 <div class="row marketing">
   Search: <input ng-model="searchText">
   <ul class="people">
-  <li ng-repeat="person in people | filter:searchText">
+  <li ng-repeat="person in people | personStrengths:searchText">
     <div title="<{{person.email}}>" class="person">{{person.name}}:</div>
     <div ng-if="loggedInUser.email"
           ng-repeat="strength in person.strengths"
